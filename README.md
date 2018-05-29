@@ -30,7 +30,7 @@ This example demonstrates how can you use AWS Lambdas to build your microservice
 
 3. **Deploy a Service:**
 
-  Use this when you have made changes to your Functions, Events or Resources in `serverless.yml` or you simply want to deploy all changes within your Service at the same time.
+  Use this command after you have made any changes.
   ```bash
   serverless deploy -v
   ```
