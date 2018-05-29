@@ -2,7 +2,7 @@
 
 const request = require('request');
 
-const doRequest = (method, config) => {
+const doRequest = async (method, config) => {
     if (!config.url) throw new Error('url is required.');
 
     return (new Promise((resolve, reject) => {

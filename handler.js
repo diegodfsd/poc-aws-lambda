@@ -6,17 +6,17 @@ const util = require('./util')
 /**
  * Get a client token
  */
-const authenticate = () => {
-  const clientId = process.env.CLIENT_ID;
-  const clientSecret = process.env.CLIENT_SECRET;
+const authenticate = async () => {
+  const clientId = process.env.CLIENT_ID
+  const clientSecret = process.env.CLIENT_SECRET
   const options = {
     url: 'https://accounts.spotify.com/api/token',
     headers: { 'Authorization': 'Basic ' + (new Buffer(`${clientId}:${clientSecret}`).toString('base64')) },
     form: { grant_type: 'client_credentials' }
   }
 
-  return request.post(options)
-    .then(resp => resp.body.access_token);
+  const resp = await request.post(options)
+  return resp.body.access_token
 }
 
 /**
@@ -25,22 +25,21 @@ const authenticate = () => {
  * @param {object} context - contains information about runner environment
  * @param {object} callback - callback function 
  */
-module.exports.search = (event, context, callback) => {
+module.exports.search = async (event, context, callback) => {
   const qs = event.queryStringParameters || {};
 
-  authenticate().then(token => {
-    const options = {
-      url: `https://api.spotify.com/v1/search?q=${qs.q}&type=track,playlist,album&limit=10&offset=0`,
-      headers: { 'Authorization': `Bearer ${token}` }
-    }
+  const token = await authenticate()
+  const options = {
+    url: `https://api.spotify.com/v1/search?q=${qs.q}&type=track,playlist,album&limit=10&offset=0`,
+    headers: { 'Authorization': `Bearer ${token}` }
+  }
 
-    request.get(options)
-      .then(body => {
-        console.log(body)
-        return callback(null, body)
-      })
-      .catch(reason => callback(reason))
-  })
+  try {
+    const body = await request.get(options)
+    callback(null, body)
+  } catch (reason) {
+    callback(reason)
+  }
 }
 
 /**
@@ -49,21 +48,23 @@ module.exports.search = (event, context, callback) => {
  * @param {object} context - contains information about runner environment
  * @param {object} callback - callback function 
  */
-module.exports.me = (event, context, callback) => {
+module.exports.me = async (event, context, callback) => {
   const users = ['12148069626', 'jmperezperez', 'smedjan'];
   let id = users[util.rand(0, users.length - 1)]
 
   if (event.queryStringParameters)
     id = event.queryStringParameters.id
 
-  authenticate().then(token => {
-    const options = {
-      url: `https://api.spotify.com/v1/users/${id}`,
-      headers: { 'Authorization': `Bearer ${token}` }
-    }
+  const token = await authenticate();
+  const options = {
+    url: `https://api.spotify.com/v1/users/${id}`,
+    headers: { 'Authorization': `Bearer ${token}` }
+  }
 
-    request.get(options)
-      .then(body => callback(null, body))
-      .catch(reason => callback(reason))
-  })
+  try {
+    const body = await request.get(options)
+    callback(null, body)
+  } catch (reason) {
+    callback(reason)
+  }
 };
