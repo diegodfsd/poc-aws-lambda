@@ -1,0 +1,22 @@
+{
+  "name": "poc-lambda--spotify",
+  "version": "1.0.0",
+  "description": "<!-- title: AWS Serverless example in NodeJS description: This example demonstrates how can you use AWS Lambdas to build your microservices. layout: Doc --> # Serverless",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegodfsd/poc-aws-lambda.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diegodfsd/poc-aws-lambda/issues"
+  },
+  "homepage": "https://github.com/diegodfsd/poc-aws-lambda#readme",
+  "dependencies": {
+    "request": "^2.87.0"
+  }
+}
