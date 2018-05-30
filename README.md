@@ -1,15 +1,14 @@
 <!--
-title: AWS Serverless example in NodeJS
-description: This example demonstrates how can you use AWS Lambdas to build your microservices.
+title: AWS Serverless experience in NodeJS
 layout: Doc
 -->
 # Serverless
 
-This example demonstrates how can you use AWS Lambdas to build your microservices.
+This example demonstrates how can you use AWS Lambdas to improve the performance in your app breaking it in small functions.
 
 ## Use-cases
 
-- Trying to query spotify api
+- Trying to query spotify api and persist and query data in DynamoDB
 
 ## Quick Start
 
@@ -32,5 +31,5 @@ This example demonstrates how can you use AWS Lambdas to build your microservice
 
   Use this command after you have made any changes.
   ```bash
-  serverless deploy -v
+  serverless deploy -v --stage prod --aws-profile [profile-name]
   ```

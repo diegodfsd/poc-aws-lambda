@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/diegodfsd/poc-aws-lambda#readme",
   "dependencies": {
-    "request": "^2.87.0"
+    "aws-sdk": "^2.248.1",
+    "firebase-admin": "^5.12.1",
+    "request": "^2.87.0",
+    "uuid": "^3.2.1"
   }
 }

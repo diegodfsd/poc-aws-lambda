@@ -20,6 +20,15 @@ service: poc-lambda--spotify
 provider:
   name: aws
   runtime: nodejs8.10
+  iamRoleStatements: # permissions for all of your functions can be set here
+    - Effect: Allow
+      Action: # Gives permission to DynamoDB tables in a specific region
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:*"  
 
 # you can overwrite defaults here
   stage: ${opt:stage, 'dev'}
@@ -42,5 +51,21 @@ functions:
     events:
      - http:
          path: search
+         method: get
+         cors: true
+
+  createMessage:
+    handler: handler.createMessage
+    events:
+     - http:
+         path: messages
+         method: post
+         cors: true
+
+  listMessages:
+    handler: handler.listMessages
+    events:
+     - http:
+         path: messages
          method: get
          cors: true
